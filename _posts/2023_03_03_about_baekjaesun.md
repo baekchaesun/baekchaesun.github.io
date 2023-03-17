@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-03-03 10:56:12 +0900 
-title: about baekjaesun
+title: "about_baekjaesun"
 ---
 
 # 백재선에 관하여
