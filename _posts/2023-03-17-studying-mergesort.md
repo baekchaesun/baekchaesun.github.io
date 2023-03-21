@@ -155,8 +155,9 @@ public static void main(String[] args) {
 &rarr; `m++`
 
 `a[m] = b[m - left]`
-&rarr; `a`배열 의 m번째 인덱스의 값에 `b`배열 (m - left)번째 인덱스 값 대입
-&rarr; 왜 (m - left)일까? : 배열 `b`는 `left`부터 시작하기 때문이다. `a`배열의 시작은 left (= m)가 맞지만, `b`배열의 시작은 left가 아니라 0이다. 따라서 (m - left)를 넣어주어 `b`배열 인덱스를 0, 1, 2, 3 늘려주는 것이다.
+&rarr; `a`배열 의 m번째 인덱스의 값에 `b`배열 (m - left)번째 인덱스 값 대입  
+&rarr; 왜 (m - left)일까? : 배열 `b`는 `left`부터 시작하기 때문이다. `a`배열의 시작은 left (= m)가 맞지만, `b`배열의 시작은 left가 아니라 0이다.  
+따라서 (m - left)를 넣어주어 `b`배열 인덱스를 0, 1, 2, 3 늘려주는 것이다.
 
 #### 끗
 
