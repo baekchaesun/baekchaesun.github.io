@@ -120,7 +120,7 @@ public static void main(String[] args) {
 
 ### 어 근데 왜 오버플로우 뜨냐
 
-~~도와줘요 ChatGPT~~
+~~인터넷 검색 결과~~
 
 >'java.lang.StackOverflowError' 오류는 보통 무한 재귀 호출로 인해 발생합니다.
 
@@ -140,22 +140,24 @@ public static void main(String[] args) {
 
 ---
 
-### 한번 더 도와줘요
-xx. 뭐가 문제인지 모르겠다. ChatGPT님께 여쭈어보았다.
+### 다시 `a` 배열 정렬
+정렬한 `b` 배열을 다시 `a` 배열로 복사해주질 않아서 정렬되기 전 `a`배열만 출력된다.
 
 ```       
  for (int m = left; m <= right; m++)
        a[m] = b[m - left];
 ```
 
-`merge`에 얘를 넣어보라네요. 
-
 해석을 해보자면...  
 `for (int m = left; m <= right; m++)`  
 &rarr; `m` int형 변수에 `left`를 대입.   
-&rarr; `m` 이 `right`에 닿을때까지 (index가 다할때까지)  
-&rarr; `m++`반복
+&rarr; `m` 이 `right`에 닿을때까지 (index 끝에 닿을 때까지)  
+&rarr; `m++`
 
-``
+`a[m] = b[m - left]`
+&rarr; `a`배열 의 m번째 인덱스의 값에 `b`배열 (m - left)번째 인덱스 값 대입
+&rarr; 왜 (m - left)일까? : 배열 `b`는 `left`부터 시작하기 때문이다. `a`배열의 시작은 left (= m)가 맞지만, `b`배열의 시작은 left가 아니라 0이다. 따라서 (m - left)를 넣어주어 `b`배열 인덱스를 0, 1, 2, 3 늘려주는 것이다.
+
+#### 끗
 
 
