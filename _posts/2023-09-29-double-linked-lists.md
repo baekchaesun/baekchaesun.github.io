@@ -295,3 +295,203 @@ Process finished with exit code 0
 합쳐버릴까 했는데 시간이 더 걸리더라도 나누는 게 더 간지나서 했다.
 
 이후에 시간 남으면 탐색 함수를 따로 만들어서 삽입, 삭제 함수에서 탐색 함수를 호출하는 코드를 구현해보겠다.
+
+---
+
+### 전체 코드
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node{
+    int data;
+    struct node *rlink;
+    struct node *llink;
+}node;
+
+typedef struct Dlinkedlists{
+    node *head;
+    unsigned int size;
+    node *tail;
+}list;
+
+void init_D_lists(list *x){
+    x->head = NULL;
+    x->tail = NULL;
+    x->size = 0;
+}
+
+int isEmpty_D_lists(list *x){
+    return (x->size == 0);
+}
+
+void insert_D_lists(list *x, int pos, int data){
+    node *new = malloc(sizeof(node));
+    new->data = data;
+
+    if (isEmpty_D_lists(x)){
+        x->head = new;
+        x->tail = new;
+    } else if (pos <= 0){             // 맨 앞에다가 넣기
+        new->llink = x->head;
+        x->head = new;
+        x->head->llink->rlink = x->head;
+
+        x->head->rlink = x->tail;     // head, tail 상호연결
+        x->tail->llink = x->head;
+    } else if (pos > x->size - 1){       // 맨 뒤에다가 넣기
+        new->rlink = x->tail;
+        x->tail = new;
+        x->tail->rlink->llink = x->tail;
+
+        x->tail->llink = x->head;
+        x->head->rlink = x->tail;
+    } else if (pos <= ((x->size)/2) - 1){   // 중간에 넣기 (head에서 순회 시작)
+        node *tmp = x->head;
+
+        for (int i = 0; i < pos - 1; ++i)
+            tmp = tmp->llink;
+
+        new->llink = tmp->llink;      // new 연결
+        tmp->llink = new;
+
+        new->rlink = tmp;             // 상호연결
+        new->llink->rlink = new;
+    } else{                           // 중간에 넣기 (tail에서 순회 시작)
+        node *tmp = x->tail;
+
+        for (int i = x->size; i > pos; --i)
+            tmp = tmp->rlink;
+
+        new->llink = tmp->llink;
+        new->rlink = tmp;
+
+        new->llink->rlink = new;
+        tmp->llink = new;
+        }
+    x->size ++;
+
+}
+
+int delete_D_lists(list *x, int pos){
+    int data;
+
+    if (isEmpty_D_lists(x)) {
+        printf("underflow \n");
+        return -1;
+    }
+
+    if (pos == 0){                         // 처음 거 제거
+        node *tmp = x->head;
+        data = tmp->data;
+
+        x->head = tmp->llink;
+        x->head->rlink = x->tail;
+        x->tail->llink = x->head;
+
+        free(tmp);
+    } else if (pos > x->size - 1){        //마지막 거 제거
+        node *tmp = x->tail;
+        data = tmp->data;
+
+        x->tail = tmp->rlink;
+        x->tail->llink = x->head;
+        x->head->rlink = x->tail;
+
+        free(tmp);
+    } else if (pos <= ((x->size)/2) - 1){  // 중간 거 제거 (head 포인터에서 순회 시작)
+        node *tmp = x->head;
+        data = tmp->data;
+
+        for (int i = 0; i < pos; ++i)
+            tmp = tmp->llink;
+
+        tmp->rlink->llink = tmp->llink;
+        tmp->llink->rlink = tmp->rlink;
+
+        free(tmp);
+    } else {                               // tail 포인터에서 순회 시작
+        node *tmp = x->tail;
+        data = tmp->data;
+
+        for (int i = x->size - 1; i > pos; --i)
+            tmp = tmp->rlink;
+
+        tmp->llink->rlink = tmp->rlink;
+        tmp->rlink->llink = tmp->llink;
+
+        free(tmp);
+    }
+    x->size --;
+
+    return data;
+}
+
+ void print_D_lists(list *x){
+    if(isEmpty_D_lists(x))
+        printf("NULL");
+    else {
+        if (x->head != NULL)
+            printf("%d", x->head->data);
+        if (x->size > 1) {
+            for (node *tmp = x->head->llink; tmp != x->head; tmp = tmp->llink) {
+                // tmp 노드가 head 포인터로 다시 돌아올 때까지 순회
+                printf(" -> %d", tmp->data);
+            }
+        }
+    }
+    printf("\n");
+}
+
+int main(){
+    list x;
+    init_D_lists(&x);
+
+    insert_D_lists(&x,2,111);   // 111
+    print_D_lists(&x);
+
+    insert_D_lists(&x,0,222);   // 222 -> 111
+    print_D_lists(&x);
+
+    insert_D_lists(&x,4,333);   // 222 -> 111 -> 333
+    print_D_lists(&x);
+
+    insert_D_lists(&x,2,444);
+    insert_D_lists(&x,2,555);   // 222 -> 111 -> 555 -> 444 -> 333
+    print_D_lists(&x);
+
+    insert_D_lists(&x,2,666);
+    insert_D_lists(&x,9,777);   // 2 1 6 5 4 3 7
+    insert_D_lists(&x,3,888);
+    insert_D_lists(&x,1,999);
+    insert_D_lists(&x,8,000);   // 2 9 1 6 8 5 4 3 0 7
+    print_D_lists(&x);
+
+
+    delete_D_lists(&x,6);       // 444 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,1);       // 999 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,0);       // 222 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,7);       // 777 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,3);       // 555 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,3);       // 333 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,10);      // 000 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,0);       // 111 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,1);       // 888 제거
+    print_D_lists(&x);
+    delete_D_lists(&x,0);       // 666 제거
+    print_D_lists(&x);
+
+    delete_D_lists(&x,1);       // isempty
+
+    return 0;
+}
+```
