@@ -506,3 +506,128 @@ int main(){
     return 0;
 }
 ```
+---
+
+### 7. 수정된 코드 (순환 탐색 함수 추가)
+```
+1. head, tail 총 두개의 경우를 만들어 순환하게 함.
+2. tmp 노드 반환
+3. 반환된 tmp 노드 사용하여 삽입 및 삭제
+```
+--- 
+
+```
+int circuit_D_lists(list *x, int pos){
+    if (pos <= ((x->size)/2) - 1){
+        node *tmp = x->head;
+
+        for (int i = 0; i < pos - 1; ++i)
+            tmp = tmp->llink;
+
+        return tmp;
+    } else {
+        node *tmp = x->tail;
+
+        for (int i = x->size; i > pos; --i)
+            tmp = tmp->rlink;
+
+        return tmp;
+    }
+}
+
+void insert_D_lists(list *x, int pos, int data){
+    node *new = malloc(sizeof(node));
+    new->data = data;
+
+    if (isEmpty_D_lists(x)){
+        x->head = new;
+        x->tail = new;
+    } else if (pos <= 0){             // 맨 앞에다가 넣기
+        new->llink = x->head;
+        x->head = new;
+        x->head->llink->rlink = x->head;
+
+        x->head->rlink = x->tail;     // head, tail 상호연결
+        x->tail->llink = x->head;
+    } else if (pos > x->size - 1){       // 맨 뒤에다가 넣기
+        new->rlink = x->tail;
+        x->tail = new;
+        x->tail->rlink->llink = x->tail;
+
+        x->tail->llink = x->head;
+        x->head->rlink = x->tail;
+    } else if (pos <= ((x->size)/2) - 1){   // 중간에 넣기 (head에서 순회 시작)
+        node *tmp = circuit_D_lists(x, pos);
+
+        new->llink = tmp->llink;      // new 연결
+        tmp->llink = new;
+
+        new->rlink = tmp;             // 상호연결
+        new->llink->rlink = new;
+    } else{                           // 중간에 넣기 (tail에서 순회 시작)
+        node *tmp = circuit_D_lists(x, pos);
+
+        new->llink = tmp->llink;
+        new->rlink = tmp;
+
+        new->llink->rlink = new;
+        tmp->llink = new;
+        }
+    x->size ++;
+
+}
+
+int delete_D_lists(list *x, int pos){
+    int data;
+
+    if (isEmpty_D_lists(x)) {
+        printf("underflow \n");
+        return NULL;
+    }
+    if (x->size == 0){
+        node *tmp = x->head;
+        x->head = x->tail = NULL;
+        x->size = 0;
+        return tmp;
+    }
+    if (pos == 0){                         // 처음 거 제거
+        node *tmp = x->head;
+        data = tmp->data;
+
+        x->head = tmp->llink;
+        x->head->rlink = x->tail;
+        x->tail->llink = x->head;
+
+        free(tmp);
+    } else if (pos > x->size - 1){        //마지막 거 제거
+        node *tmp = x->tail;
+        data = tmp->data;
+
+        x->tail = tmp->rlink;
+        x->tail->llink = x->head;
+        x->head->rlink = x->tail;
+
+        free(tmp);
+    } else if (pos <= ((x->size)/2) - 1){  // 중간 거 제거 (head 포인터에서 순회 시작)
+        node *tmp = circuit_D_lists(x, pos);
+        data = tmp->data;
+
+        tmp->rlink->llink = tmp->llink;
+        tmp->llink->rlink = tmp->rlink;
+
+        free(tmp);
+    } else {                               // tail 포인터에서 순회 시작
+        node *tmp = circuit_D_lists(x, pos);
+        data = tmp->data;
+
+        tmp->llink->rlink = tmp->rlink;
+        tmp->rlink->llink = tmp->llink;
+
+        free(tmp);
+    }
+    x->size --;
+
+    return data;
+}
+
+```
