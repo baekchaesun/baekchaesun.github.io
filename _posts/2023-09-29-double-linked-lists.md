@@ -131,9 +131,15 @@ int delete_D_lists(list *x, int pos){
 
     if (isEmpty_D_lists(x)) {
         printf("underflow \n");
-        return -1;
+        return NULL;
     }
+    if (x->size == 1){
+        node *tmp = x->head;
+	x->head = x->tail = NULL;
+	x->size = 0;
 
+	return tmp;
+    }
     if (pos == 0){                         // 처음 거 제거
         node *tmp = x->head;
         data = tmp->data;
