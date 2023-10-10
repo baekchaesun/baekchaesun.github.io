@@ -21,8 +21,7 @@ title: "[C] 백준 1158번: 요세푸스 문제"
 4. 리스트가 빌 때까지 1, 2, 3번을 반복한다.
 ```
 ---
-### 1. 노드 및 리스트 정의, 초기화
-
+### 1. 노드 및 리스트 정의, 초기화<br>
 LinkedLists 정의
 ---
 
@@ -95,8 +94,7 @@ node* dequeue_table(table *q){
 ```
 ---
 
-### 4. reenqueue 함수
-
+### 4. reenqueue 함수<br>
 k에 해당하지 않는 노드 dequeue 후, 다시 enqueue 할 때 호출하는 함수.
 ---
 ```
@@ -151,8 +149,7 @@ int josephus(table *q, int n, int k) {
 }
 ```
 
-### 7. make_table 함수
-
+### 7. make_table 함수<br>
 처음에 입력된 n에 맞춰서 리스트에 1 ~ n 숫자 삽입.
 ---
 ```
