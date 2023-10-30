@@ -15,9 +15,9 @@ title: "[C] 롤토체스 시즌 9.5 챔피언 검색트리 구현"
 ```
 ---
 ### 1. 노드 정의 <br>
-- 정보는 이름(char), 체력, 공격력, 초당피해량(int) 네 개로 함.<br>
+- 정보는 이름(char), 체력, 공격력, 초당피해량(int) 네 개로 함.
 - 이중연결리스트 이므로 자식 노드는 left와 right.
----
+
 ```
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,7 +42,6 @@ typedef struct champion{
 - 0 -> 문자열이 같다 
 - -1 -> str1이 사전적으로 앞에 있다 
 - 1 -> 반대
----
 
 ```
 1. strcmp 함수로 key와 루트의 챔피언 이름을 비교.
@@ -50,7 +49,7 @@ typedef struct champion{
 3. 뒤 순서라면 'root->right' 재귀호출
 4. 같다면 'return' 중복처리.
 ```
----
+
 ```
 void add_chapions(champ **root, const char *name, int hp, int atk, int dps){
     if (*root == NULL){
@@ -63,8 +62,8 @@ void add_chapions(champ **root, const char *name, int hp, int atk, int dps){
         (*root)->right = NULL;
     } else{
         int x = strcmp(name, (*root)->name); // strcmp(str1,str2)
-        // : (0->문자열이 같다) (-1->str1이 사전적으로 앞에 있다) (1->반대)
-        if (x < 0) // str1이 앞순서라면(root 보다 앞 순서라면,)
+
+        if (x < 0)   // str1이 앞순서라면(root 보다 앞 순서라면,)
             add_chapions(&(*root)->left, name, hp, atk, dps);  // 이름을 root 의 left.
         else if (x > 0)
             add_chapions(&(*root)->right, name, hp, atk, dps);
@@ -77,7 +76,7 @@ void add_chapions(champ **root, const char *name, int hp, int atk, int dps){
 ### 3. inorder_champ 함수
 1. add_champions에서 입력한 전체 챔피언 이름과 정보 출력.<br>
 2. 중위 순회로 출력. 알파벳 순서.<br>
----
+
 ```
 void inorder_champ(champ *root) {
     if (root == NULL) return;
@@ -93,16 +92,16 @@ void inorder_champ(champ *root) {
 1. 원하는 챔피언의 이름과 정보를 출력. <br>
 2. 원하는 챔피언을 탐색하기까지의 과정 출력. <br>
 3. 탐색 횟수 출력.
----
+
 ```
 1. 'count' 변수 정의 : 전체 탐색 횟수
 2. 현재 위치 (root)가 'NULL'일 때까지 반복 및 탐색횟수 증가.
 3. 원하는 챔피언 이름과 루트의 챔피언 이름 순서 비교
 4. 루트 챔피언의 이름 출력 후 (탐색 과정 출력) 왼쪽이나 오른쪽 자식 노드로 이동.
-5. 만약 '(2. 현재 위치 (root)가 'NULL'일 때까지 반복)'을 만족하기 전<br>
+5. 만약 '(2. 현재 위치 (root)가 'NULL'일 때까지 반복)'을 만족하기 전에<br>
 원하는 챔피언 이름과 루트 챔피언 이름이 일치하면 그 챔피언 이름과 정보, 탐색 횟수 출력.  
 ```
----
+
 ```
 int inorder_search_and_print(champ *root, const char *name){
     int count = 0; // 탐색 횟수
@@ -139,7 +138,7 @@ int inorder_search_and_print(champ *root, const char *name){
 2. 챔피언 이름 및 정보 삽입
 3. 원하는 챔피언 이름 검색
 ```
----
+
 ```
 int main(){
     champ *root = NULL;
@@ -165,7 +164,8 @@ int main(){
 ```
 ---
 ### 6. output
-```C:\Users\qorwo\Desktop\DataStructure\cmake-build-debug\lolchess.exe
+```
+C:\Users\qorwo\Desktop\DataStructure\cmake-build-debug\lolchess.exe
 champion : Aatrox
 hp : 900, atk : 70, dps : 80
 ----------------------
@@ -198,13 +198,13 @@ hp : 500, atk : 15, dps : 30
 
 Process finished with exit code 0
 ```
----
 
 ```
 1.'add_champions' 함수를 재귀 호출할 때 '&name'이 아니고 'name'으로 호출하는 이유<br>
 - 함수 정의를 포인터로 했으므로 주소값이 아닌 name 실제 값을 넘겨줘야함.
 2. 이중포인터 너무 어렵당. 처음에 함수 정의를 뭘로 했는지 신경써야겠다.
 ```
+
 ---
 ### 7.전체코드
 ```
