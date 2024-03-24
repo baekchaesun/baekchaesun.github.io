@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-10-10 15:00:08 +0900
-title: "[C] 백준 1158번: 요세푸스 문제"
+title: "요세푸스 - circular queue "
 ---
 
 # Josephus problem (C language)
@@ -21,59 +21,7 @@ title: "[C] 백준 1158번: 요세푸스 문제"
 4. 리스트가 빌 때까지 1, 2, 3번을 반복한다.
 ```
 ---
-### 1. 노드 및 리스트 정의, 초기화<br>
-LinkedLists 정의
----
-
-```
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct node{
-    int data;
-    struct node *next;
-}node;
-
-typedef struct table_list{
-    struct node *front;
-    struct node *rear;
-    int count;
-}table;
-
-void initTable(table *q){
-    q->front=q->rear=NULL;
-    q->count=0;
-}
-
-int isEmptyTable(table *q){
-    return (q->count == 0);
-}
-```
----
-
-### 2. enqueue 함수
-
-연결리스트에 초기 데이터 삽입할 때만 호출됨.<br>
-리스트의 rear 포인터에 노드 삽입
----
-```
-void enqueue_table(table *q, int data){
-    node *new = malloc(sizeof(node));
-    new->data = data;
-
-    if (isEmptyTable(q)){
-        q->front = new;
-        q->rear = new;
-    } else{
-        q->rear->next = new;
-        q->rear = new;
-    }
-    q->count ++;
-}
-```
----
-
-### 3. dequeue 함수
+### dequeue
 
 리스트의 front 포인터에 해당하는 노드를 반환.<br>
 제거하지 않는 이유는 다시 enqueue 해야하기 때문이다. (reenqueue 함수)
@@ -94,7 +42,7 @@ node* dequeue_table(table *q){
 ```
 ---
 
-### 4. reenqueue 함수<br>
+### reenqueue <br>
 k에 해당하지 않는 노드 dequeue 후, 다시 enqueue 할 때 호출하는 함수.
 ---
 ```
@@ -111,29 +59,7 @@ void reinqueue(table *q, node *tmp){   // dequeued node를 다시 reenqueue.
 ```
 ---
 
-### 5. output 함수
-
-k에 해당하는 노드를 dequeue 하고(dequeue 함수 X) 그 값을 반환한다.
-반환된 값은 이후 main 함수에서 배열에 삽입될 것이다.
----
-```
-int output(table *q){
-    if (isEmptyTable(q)) return -1;
-    else {
-        node *tmp = q->front;
-        int data = tmp->data;
-
-        q->front = tmp->next;
-        q->count--;
-
-        free(tmp);
-        return data;
-    }
-}
-```
----
-
-### 6. josephus 함수
+### josephus
 
 k에 해당하는지 해당하지 않는지 구분하고, <br>
 해당하면 `output()`, <br>
@@ -202,11 +128,7 @@ int main(){
 ---
 
 ### 9. 출력
-```
-C:\Users\qorwo\Desktop\DataStructure\cmake-build-debug\josephus_problem.exe
-< 3 6 2 7 5 1 4 >
-Process finished with exit code 0
-```
+`
 ---
 
 1. dequeue 된 값을 어떻게 다시 reenqueue 해야할 지 고민이 많이 됐다.<br>

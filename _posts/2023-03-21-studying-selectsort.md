@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-03-21 18:29:51 +0900
-title: "selectsort 툭탁툭탁"
+title: "selectsort"
 ---
 
 # selectsort (선택정렬)  
@@ -13,7 +13,6 @@ mergesort의 시간복잡도 : O(n log n)
 selectsort의 시간복잡도 : O(n^2)  
 -> 시간 복잡도가 커서 데이터 크기가 커질수록 성능이 저하된다.
 
-## 선택정렬 코드 짜보기
 ```
 public static void seletSort (int [] a) {
 
@@ -63,22 +62,5 @@ public static void seletSort (int [] a) {
 
 ---
 
-`main` 메소드
-```
-public static void main(String[] args) {
-    int [] a = {3, 1, 2, 5, 4};
-    selectSort(a);
-    System.out.println(Arrays.toString(a));  
-}
-```
-### 결과값
-[1, 2, 3, 4, 5]
 
----
-
-
-짧아서 mergesort 해봤던 거에 비해 금방 했다.  
-중간중간 `min`과 `i`의 관계가 헷갈렸는데, 글로 정리하니까 보기 편하다.
-
-
-### 끗
+#### 끝.
