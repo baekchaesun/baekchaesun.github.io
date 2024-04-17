@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!--
+  Name: Jaesun Baek
+  Date: April 17, 2024
+  Section: IAB 6068 - Internet Programming
+  reviewing the lectrue internet programming's hw-01-B 'TMNT'
+-->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>REVIEW: 'HW01-TMNT'</title>
+  </head>
+  <body>
+    <div>
+      <section>
+        <h1>&lt;HTML/CSS&gt; Making movie review page: 'TMNL'</h1>
+        <h2 id="index">Index</h2>
+        <ol>
+          <li>Dividing the Main container</li>
+          <li>Problems encountered</li>
+          <li>Result and Overall reviewing</li>
+        </ol>
+      </section>
+
+      <p><strong>CAUTION! "Since this is a record of troubleshooting the initial code, errors may exist."</strong></p>
+
+      <aside id="other-posts">
+        <h4>Other Posts</h4>
+        <ul>
+          <li><a href="about.html" target="_blank">About Jaesun Baek</a>
+          </li>
+        </ul>
+      </aside>
+
+      <section class="big-part">
+        <h2>1. Dividing the Main container</h2>
+        <p>The main container was divided into 4 parts.</p>
+        <ul>
+          <li><strong>&lt;nav&gt;</strong> Movie rating</li>
+          <li><strong>&lt;aside&gt;</strong> Overall, Informations</li>
+          <li><strong>&lt;section&gt;</strong> Reviews</li>
+          <li><strong>&lt;footer&gt;</strong> Page number</li>
+        </ul>
+        <img id="main-container-frame" src="images/maincontainerframe.png" alt="main container frame"/>
+
+        <p>Below is the initial CSS code.</p>
+        <div class="code-box">
+          <code>
+            .main-container{</br>
+              &nbsp;&nbsp;width: 800px;</br>
+              &nbsp;&nbsp;margin: auto auto;</br>
+            }</br>
+
+            .main-container > nav > div{</br>
+              &nbsp;&nbsp;width: 550px;</br>
+              &nbsp;&nbsp;display: flex;</br>
+            }</br>
+
+            .main-container > aside{</br>
+              &nbsp;&nbsp;float: right;</br>
+              &nbsp;&nbsp;width: 250px;</br>
+            }</br>
+
+            .main-container > section{</br>
+              &nbsp;&nbsp;column-count: 2;</br>
+              &nbsp;&nbsp;column-width: 270px;</br>
+              &nbsp;&nbsp;column-gap: 10px;</br>
+            }</br>
+
+            .main-container >  footer {</br>
+              &nbsp;&nbsp;align-items: center;</br>
+              &nbsp;&nbsp;text-align: center;</br>
+            }</br>
+          </code>
+        </div>
+      </section>
+
+      <section class="big-part">
+        <h2>2. Problems encountered</h2>
+        <ol>
+          <li></li>
+        </ol>
+
+      </section>
+    </div>
+  </body>
+</html>

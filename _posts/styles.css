@@ -1,0 +1,85 @@
+/*
+  Name: Jaesun Baek
+  Date: April 4, 2024
+  Section: IAB 6068 - Internet Programming
+  I be making it tidy, sorting it by lists so that it is easy on the eyes.
+*/
+
+body {
+  background-color: lightsteelblue;
+  font-family: "Helvetica", sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+#me-introduction {
+  line-height: 22px;
+}
+
+#other-posts {
+  border-radius: 15pt;
+  width: 180px;
+  background-color: rgb(184, 209, 221);
+  float: right;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-decoration: underline;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+#index {
+  margin-bottom: 0px;
+}
+
+.big-part {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 50px;
+  p {
+    text-decoration: underline;
+  }
+}
+
+li{
+  line-height: 140%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+section > p {
+  padding-left: 22px;
+}
+
+blockquote{
+  position: relative;
+  width: 40rem;
+  max-width: 100%;
+  padding: 0.3rem 0.8rem;
+  color: black;
+  background: #c8d8f0;
+  border-left: 6px solid #120a8f;
+  p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  footer {
+    padding-left: 30px;
+    padding-bottom: 0.5rem;
+    font-size: 17px;
+    font-style: italic;
+  }
+}
+
+#main-container-frame{
+  width: 140pt;
+  padding-left: 22px;
+  margin-bottom: 25px;
+}
+
+.code-box {
+  font-size: 15px;
+  margin-left: 22px;
+  padding: 15px;
+  background-color: #2b2b2b;
+  color: #bababa;
+}
